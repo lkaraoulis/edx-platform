@@ -227,7 +227,7 @@ class LmsSearchFilterGeneratorTestCase(ModuleStoreTestCase):
 
         self.assertTrue('start_date' in filter_dictionary)
         self.assertEqual(unicode(self.courses[0].id), field_dictionary['course'])
-        self.assertEqual(unicode(None), filter_dictionary['content_groups'])
+        self.assertEqual(None, filter_dictionary['content_groups'])
 
     def test_content_group_with_cohort_not_provided(self):
         """
@@ -242,7 +242,7 @@ class LmsSearchFilterGeneratorTestCase(ModuleStoreTestCase):
 
         self.assertTrue('start_date' in filter_dictionary)
         self.assertEqual(unicode(self.courses[0].id), field_dictionary['course'])
-        self.assertEqual(unicode(None), filter_dictionary['content_groups'])
+        self.assertEqual(None, filter_dictionary['content_groups'])
 
     @patch('opaque_keys.edx.keys.CourseKey.from_string')
     @patch('opaque_keys.edx.locations.SlashSeparatedCourseKey.from_deprecated_string')
