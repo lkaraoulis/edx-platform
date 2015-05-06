@@ -21,21 +21,29 @@ class LmsSearchFilterGenerator(SearchFilterGenerator):
     def filter_dictionary(self, **kwargs):
         """ base implementation which filters via start_date """
         filter_dictionary = super(LmsSearchFilterGenerator, self).filter_dictionary(**kwargs)
-        staff_condition = 'is_staff' not in kwargs or kwargs['is_staff'] is None
-        if 'user' in kwargs and 'course_id' in kwargs and kwargs['course_id'] and staff_condition:
+        if 'user' in kwargs and 'course_id' in kwargs and kwargs['course_id']:
+            user = kwargs['user']
             try:
                 course_key = CourseKey.from_string(kwargs['course_id'])
             except InvalidKeyError:
                 course_key = SlashSeparatedCourseKey.from_deprecated_string(kwargs['course_id'])
-            cohorted_user_partition = get_cohorted_user_partition(course_key)
-            partition_group = None
-            if cohorted_user_partition:
-                partition_group = cohorted_user_partition.scheme.get_group_for_user(
-                    course_key,
-                    kwargs['user'],
-                    cohorted_user_partition,
-                )
-            filter_dictionary['content_groups'] = unicode(partition_group.id) if partition_group else None
+
+            staff_access = has_access(user, 'staff', course_key)
+            if staff_access and 'request' in kwargs and kwargs['request']:
+                request = kwargs['request']
+                masquerade = setup_masquerade(request, course_key, staff_access)
+                if masquerade.role != 'staff':
+                    filter_dictionary['content_groups'] = masquerade.group_id
+            else:
+                cohorted_user_partition = get_cohorted_user_partition(course_key)
+                if cohorted_user_partition:
+                    partition_group = cohorted_user_partition.scheme.get_group_for_user(
+                        course_key,
+                        user,
+                        cohorted_user_partition,
+                    )
+                    filter_dictionary['content_groups'] = unicode(partition_group.id) if partition_group else None
+
         return filter_dictionary
 
     def field_dictionary(self, **kwargs):
@@ -64,4 +72,3 @@ class LmsSearchFilterGenerator(SearchFilterGenerator):
             exclude_dictionary['org'] = list(org_filter_out_set)
 
         return exclude_dictionary
-
