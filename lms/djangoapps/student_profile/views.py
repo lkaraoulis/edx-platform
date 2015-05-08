@@ -15,7 +15,7 @@ from openedx.core.djangoapps.user_api.accounts.serializers import PROFILE_IMAGE_
 from openedx.core.djangoapps.user_api.errors import UserNotFound, UserNotAuthorized
 from openedx.core.djangoapps.user_api.preferences.api import get_user_preferences
 from student.models import User
-
+import pyuca
 from microsite_configuration import microsite
 
 from django.utils.translation import ugettext as _
@@ -70,10 +70,13 @@ def learner_profile_context(logged_in_user, profile_username, user_is_staff, bui
     """
     profile_user = User.objects.get(username=profile_username)
 
+    collator = pyuca.Collator()
+    sort_key = lambda item: collator.sort_key(unicode(item[1]))
+
     country_options = [
         (country_code, _(country_name))  # pylint: disable=translation-of-non-string
         for country_code, country_name in sorted(
-            countries.countries, key=lambda(__, name): unicode(name)
+            countries.countries, key=sort_key
         )
     ]
     own_profile = (logged_in_user.username == profile_username)

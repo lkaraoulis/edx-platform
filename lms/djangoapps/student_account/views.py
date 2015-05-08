@@ -41,6 +41,9 @@ from util.bad_request_rate_limiter import BadRequestRateLimiter
 
 from openedx.core.djangoapps.user_api.accounts.api import request_password_change
 from openedx.core.djangoapps.user_api.errors import UserNotFound
+
+import pyuca
+
 from util.bad_request_rate_limiter import BadRequestRateLimiter
 
 from student_account.helpers import auth_pipeline_urls
@@ -338,10 +341,13 @@ def account_settings_context(request):
     """
     user = request.user
 
+    collator = pyuca.Collator()
+    sort_key = lambda item: collator.sort_key(unicode(item[1]))
+
     country_options = [
         (country_code, _(country_name))  # pylint: disable=translation-of-non-string
         for country_code, country_name in sorted(
-            countries.countries, key=lambda(__, name): unicode(name)
+            countries.countries, key=sort_key
         )
     ]
 
