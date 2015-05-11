@@ -42,41 +42,41 @@
         <div class="social-media-links">
           ## Translators: This is the website name of www.facebook.com. Please
           ## translate this the way that Facebook advertises in your language.
-          <a href="${settings.SOCIAL_MEDIA_FOOTER_URLS.get('facebook', '#')}" class="sm-link" title="${_("Facebook")}" rel="noreferrer">
+          <a href="${settings.SOCIAL_MEDIA_FOOTER_URLS.get('facebook', '#')}" class="sm-link external" title="${_("Facebook")}" rel="noreferrer">
             <span class="icon fa fa-facebook element-invisible"></span>
           </a>
 
           ## Translators: This is the website name of www.twitter.com. Please
           ## translate this the way that Twitter advertises in your language.
-          <a href="${settings.SOCIAL_MEDIA_FOOTER_URLS.get('twitter', '#')}" class="sm-link" title="${_("Twitter")}" rel="noreferrer">
+          <a href="${settings.SOCIAL_MEDIA_FOOTER_URLS.get('twitter', '#')}" class="sm-link external" title="${_("Twitter")}" rel="noreferrer">
             <span class="icon fa fa-twitter element-invisible"></span>
           </a>
 
           ## Translators: This is the website name of www.linked.com. Please
           ## translate this the way that LinkedIn advertises in your language.
-          <a href="${settings.SOCIAL_MEDIA_FOOTER_URLS.get('linkedin', '#')}" class="sm-link" title="${_("LinkedIn")}" rel="noreferrer">
+          <a href="${settings.SOCIAL_MEDIA_FOOTER_URLS.get('linkedin', '#')}" class="sm-link external" title="${_("LinkedIn")}" rel="noreferrer">
             <span class="icon fa fa-linkedin element-invisible"></span>
           </a>
 
           ## Translators: This is the website name of plus.google.com. Please
           ## translate this the way that Google+ advertises in your language.
-          <a href="${settings.SOCIAL_MEDIA_FOOTER_URLS.get('facebook', '#')}" class="sm-link" title="${_("Google+")}" rel="noreferrer">
+          <a href="${settings.SOCIAL_MEDIA_FOOTER_URLS.get('facebook', '#')}" class="sm-link external" title="${_("Google+")}" rel="noreferrer">
             <span class="icon fa fa-weibo element-invisible"></span>
           </a>
 
           ## Translators: This is the website name of www.meetup.com. Please
           ## translate this the way that Meetup advertises in your language.
-          <a href="${settings.SOCIAL_MEDIA_FOOTER_URLS.get('facebook', '#')}" class="sm-link" title="${_("Meetup")}" rel="noreferrer">
+          <a href="${settings.SOCIAL_MEDIA_FOOTER_URLS.get('facebook', '#')}" class="sm-link external" title="${_("Meetup")}" rel="noreferrer">
             <span class="icon fa fa-vk element-invisible"></span>
           </a>
         </div>
 
         ## % if settings.FEATURES.get('ENABLE_FOOTER_MOBILE_APP_LINKS'):
         <div class="mobile-app-links">
-          <a href="${settings.MOBILE_STORE_URLS.get('apple', '#')}" class="app-link">
+          <a href="${settings.MOBILE_STORE_URLS.get('apple', '#')}" class="app-link external">
             <img class="app-store" alt="${_("Apple app on Apple Store")}" src="${static.url('images/app/app_store_badge_135x40.svg')}">
           </a>
-          <a href="${settings.MOBILE_STORE_URLS.get('google', '#')}" class="app-link">
+          <a href="${settings.MOBILE_STORE_URLS.get('google', '#')}" class="app-link external">
             <img class="google-play" alt="${_("Android app on Google Play")}" src="${static.url('images/app/google_play_badge_45.png')}">
           </a>
         </div>
@@ -85,4 +85,7 @@
 </footer>
 
 <script type="text/javascript" src="/static/js/vendor/noreferrer.js" charset="utf-8"></script>
+<%block name="js_extra">
+    <%static:js group='footer_edx'/>
+</%block>
 

@@ -1173,6 +1173,7 @@ dashboard_js = (
 )
 discussion_js = sorted(rooted_glob(COMMON_ROOT / 'static', 'coffee/src/discussion/**/*.js'))
 rwd_header_footer_js = sorted(rooted_glob(PROJECT_ROOT / 'static', 'js/common_helpers/rwd_header_footer.js'))
+footer_edx_js = sorted(rooted_glob(PROJECT_ROOT / 'static', 'js/footer-edx.js'))
 staff_grading_js = sorted(rooted_glob(PROJECT_ROOT / 'static', 'coffee/src/staff_grading/**/*.js'))
 open_ended_js = sorted(rooted_glob(PROJECT_ROOT / 'static', 'coffee/src/open_ended/**/*.js'))
 notes_js = sorted(rooted_glob(PROJECT_ROOT / 'static', 'coffee/src/notes/**/*.js'))
@@ -1435,6 +1436,10 @@ PIPELINE_JS = {
     'ccx': {
         'source_filenames': ccx_js,
         'output_filename': 'js/ccx.js'
+    },
+    'footer_edx': {
+        'source_filenames' : footer_edx_js,
+        'output_filename': 'js/footer_edx.js'
     }
 }
 
