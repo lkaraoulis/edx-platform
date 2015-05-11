@@ -342,6 +342,9 @@ FEATURES = {
     # Show the mobile app links in the footer
     'ENABLE_FOOTER_MOBILE_APP_LINKS': False,
 
+    # Use version 3 of the footer (added May 2015)
+    'ENABLE_FOOTER_V3': False,
+
     # Let students save and manage their annotations
     'ENABLE_EDXNOTES': False,
 
@@ -1290,6 +1293,18 @@ PIPELINE_CSS = {
             'css/vendor/ui-lightness/jquery-ui-1.8.22.custom.css',
         ],
         'output_filename': 'css/lms-style-course-vendor.css',
+    },
+    'style-edx-footer': {
+        'source_filenames': [
+            'sass/footer-v3.css'
+        ],
+        'output_filename': 'css/lms-style-edx-footer-v3.css',
+    },
+    'style-edx-footer-rtl': {
+        'source_filenames': [
+            'sass/footer-v3-rtl.css'
+        ],
+        'output_filename': 'css/lms-style-edx-footer-v3.css',
     },
     'style-student-notes': {
         'source_filenames': [

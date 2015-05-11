@@ -5,13 +5,12 @@
 
 // libs and resets *do not edit*
 @import 'bourbon/bourbon'; // lib - bourbon
-@import 'vendor/bi-app/bi-app-rtl'; // set the layout for right to left languages
+@import 'vendor/bi-app/bi-app-rtl'; // set the layout for left to right languages
 
 // BASE  *default edX offerings*
 // ====================
 
 // base - utilities
-@import 'base/reset';
 @import 'base/variables';
 @import 'base/mixins';
 
@@ -28,4 +27,19 @@
   @import '${env.get('THEME_NAME')}';
 % endif
 
-@import 'build-lms'; // shared app style assets/rendering
+// base - assets
+@import 'base/font_face';
+
+footer#footer-edx-v3 {
+    @import 'base/extends';
+
+    // base - starter
+    @import 'base/base';
+
+}
+
+// base - elements
+@import 'elements/typography';
+
+// shared - platform
+@import 'shared/footer-v3';

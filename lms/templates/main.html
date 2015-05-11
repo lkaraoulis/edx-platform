@@ -135,7 +135,7 @@
 
 </head>
 
-<body class="${dir_rtl} <%block name='bodyclass'/> lang_${LANGUAGE_CODE}">
+<body class="${dir_rtl} <%block name='bodyclass'/> lang_${LANGUAGE_CODE}" data-updated="main.html">
   <div class="window-wrap" dir="${dir_rtl}">
     <a class="nav-skip" href="<%block name="nav_skip">#content</%block>">${_("Skip to main content")}</a>
 
@@ -156,8 +156,10 @@
           <%
             if theme_enabled() and not is_microsite():
               footer_file = 'theme-footer.html'
+            elif settings.FEATURES.get('IS_EDX_DOMAIN', False) and  settings.FEATURES.get('ENABLE_FOOTER_V3', True) and not is_microsite():
+              footer_file = microsite.get_template_path('footer-edx-v3.html')
             elif settings.FEATURES.get('IS_EDX_DOMAIN', False) and not is_microsite():
-              footer_file = microsite.get_template_path('footer-edx-new.html')
+              footer_file = microsite.get_template_path('footer-edx-v2.html')
             else:
               footer_file = microsite.get_template_path('footer.html')
           %>
