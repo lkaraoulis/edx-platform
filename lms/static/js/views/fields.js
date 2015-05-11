@@ -114,7 +114,11 @@
 
                 setTimeout(function () {
                     if ((context === view.lastSuccessMessageContext) && (view.getNotificationMessage() === successMessage)) {
-                        view.showHelpMessage();
+                        if (view.editable === 'toggle') {
+                            view.showCanEditMessage(true);
+                        } else {
+                            view.showHelpMessage();
+                        }
                     }
                 }, messageRevertDelay);
             },
@@ -401,7 +405,7 @@
 
             saveSucceeded: function() {
                 if (this.editable === 'toggle') {
-                    this.showDisplayMode();
+                    this.showDisplayMode(true);
                 }
 
                 if (this.options.required && this.modelValueIsSet()) {
