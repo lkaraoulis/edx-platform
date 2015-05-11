@@ -1297,13 +1297,13 @@ PIPELINE_CSS = {
     },
     'style-edx-footer': {
         'source_filenames': [
-            'sass/footer-v3.css'
+            'sass/footer-v3.css',
         ],
         'output_filename': 'css/lms-style-edx-footer-v3.css',
     },
     'style-edx-footer-rtl': {
         'source_filenames': [
-            'sass/footer-v3-rtl.css'
+            'sass/footer-v3-rtl.css',
         ],
         'output_filename': 'css/lms-style-edx-footer-v3.css',
     },
