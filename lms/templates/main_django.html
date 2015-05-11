@@ -27,7 +27,7 @@
   <meta name="path_prefix" content="{{EDX_ROOT_URL}}">
 </head>
 
-<body class="{% block bodyclass %}{% endblock %} lang_{{LANGUAGE_CODE}}" data-updated="main_django.html">
+<body class="{% block bodyclass %}{% endblock %} lang_{{LANGUAGE_CODE}}">
   <a class="nav-skip" href="{% block nav_skip %}#content{% endblock %}">{% trans "Skip to main content" %}</a>
   {% with course=request.course %}
     {% if IS_EDX_DOMAIN %}
