@@ -26,7 +26,7 @@ class LearnerProfileViewTest(UrlResetMixin, TestCase):
         'own_profile',
         'country_options',
         'language_options',
-        'account_settings',
+        'account_settings_data',
         'preferences_data',
     ]
 

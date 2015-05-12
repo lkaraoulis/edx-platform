@@ -3,6 +3,7 @@
 import logging
 import json
 from ipware.ip import get_ip
+import pyuca
 
 from django.conf import settings
 from django.contrib import messages
@@ -41,9 +42,6 @@ from util.bad_request_rate_limiter import BadRequestRateLimiter
 
 from openedx.core.djangoapps.user_api.accounts.api import request_password_change
 from openedx.core.djangoapps.user_api.errors import UserNotFound
-
-import pyuca
-
 from util.bad_request_rate_limiter import BadRequestRateLimiter
 
 from student_account.helpers import auth_pipeline_urls

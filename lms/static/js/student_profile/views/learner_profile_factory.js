@@ -16,20 +16,19 @@
 
             var learnerProfileElement = $('.wrapper-profile');
 
+            var accountSettingsModel = new AccountSettingsModel(
+                _.extend(
+                    options.account_settings_data,
+                    {'default_public_account_fields': options.default_public_account_fields}
+                ),
+                {parse: true}
+            );
             var AccountPreferencesModelWithDefaults = AccountPreferencesModel.extend({
                 defaults: {
                     account_privacy: options.default_visibility
                 }
             });
-            var accountPreferencesModel, accountSettingsModel;
-
-            accountSettingsModel = new AccountSettingsModel(
-                _.extend(
-                    options.account_settings, {'default_public_account_fields': options.default_public_account_fields}),
-                {parse: true}
-            );
-
-            accountPreferencesModel = new AccountPreferencesModelWithDefaults(options.preferences_data);
+            var accountPreferencesModel = new AccountPreferencesModelWithDefaults(options.preferences_data);
 
             accountSettingsModel.url = options.accounts_api_url;
             accountPreferencesModel.url = options.preferences_api_url;
@@ -126,10 +125,6 @@
                 sectionOneFieldViews: sectionOneFieldViews,
                 sectionTwoFieldViews: sectionTwoFieldViews
             });
-
-            var showLoadingError = function () {
-                learnerProfileView.showLoadingError();
-            };
 
             var getProfileVisibility = function() {
                 if (options.has_preferences_access) {
