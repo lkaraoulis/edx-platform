@@ -199,7 +199,8 @@ FEATURES = {
     'ENABLE_SERVICE_STATUS': False,
 
     # Toggle to indicate use of a custom theme
-    'USE_CUSTOM_THEME': False,
+    'USE_CUSTOM_THEME': True,
+    'THEME_NAME': 'red-theme',
 
     # Don't autoplay videos for students
     'AUTOPLAY_VIDEOS': False,
@@ -1268,20 +1269,6 @@ PIPELINE_CSS = {
             'js/vendor/tinymce/js/tinymce/skins/studio-tmce4/skin.min.css'
         ],
         'output_filename': 'css/lms-style-vendor-tinymce-skin.css',
-    },
-    'style-app': {
-        'source_filenames': [
-            'sass/application.css',
-            'sass/ie.css'
-        ],
-        'output_filename': 'css/lms-style-app.css',
-    },
-    'style-app-rtl': {
-        'source_filenames': [
-            'sass/application-rtl.css',
-            'sass/ie-rtl.css'
-        ],
-        'output_filename': 'css/lms-style-app-rtl.css',
     },
     'style-course-vendor': {
         'source_filenames': [

@@ -46,4 +46,5 @@
 @import 'shared/unsubscribe';
 
 @import 'developer'; // used for any developer-created scss that needs further polish/refactoring
+@import 'ie';        // used for Internet Explorer overrides
 @import 'shame';     // used for any bad-form/orphaned scss
