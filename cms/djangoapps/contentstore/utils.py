@@ -113,6 +113,7 @@ def get_lms_link_for_item(location, preview=False):
 def get_lms_link_for_about_page(course_key):
     """
     Returns the url to the course about page from the location tuple.
+    Returns the url to the course about page from the location tuple.
     """
 
     assert(isinstance(course_key, CourseKey))
