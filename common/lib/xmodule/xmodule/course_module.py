@@ -846,6 +846,15 @@ class CourseFields(object):
         scope=Scope.settings,
     )
 
+    teams_configuration = Dict(
+        display_name=_("Teams Configuration"),
+        help=_(
+            "Enter policy keys and values to enable the teams feature, define topics, "
+            "or specify the maximum team size."
+        ),
+        scope=Scope.settings
+    )
+
 
 class CourseModule(CourseFields, SequenceModule):  # pylint: disable=abstract-method
     """
