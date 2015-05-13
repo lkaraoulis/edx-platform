@@ -22,6 +22,7 @@
 @import 'shared/fields';
 @import 'shared/forms';
 @import 'shared/footer';
+@import 'shared/footer-v3'; // replaces footer partial once feature flag removed
 @import 'shared/header';
 @import 'shared/course_object';
 @import 'shared/course_filter';
