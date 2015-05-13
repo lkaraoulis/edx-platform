@@ -1092,7 +1092,7 @@ class GroupConfigurationSearchMongo(CourseTestCase, MixedWithOptionsTestCase):
         added_to_index = self.reindex_course(self.store)
         self.assertEqual(added_to_index, 7)
         response = self.searcher.search(field_dictionary={"course": unicode(self.course.id)})
-        self.assertEqual(response["total"], 7)
+        self.assertEqual(response["total"], 8)
 
         group_access_content = {'group_access': {666: [1]}}
 
@@ -1106,7 +1106,7 @@ class GroupConfigurationSearchMongo(CourseTestCase, MixedWithOptionsTestCase):
         with patch(settings.SEARCH_ENGINE + '.index') as mock_index:
             self.reindex_course(self.store)
             self.assertTrue(mock_index.called)
-            self.assertEqual(self._html_group_result(self.html_unit1, [1]), mock_index.mock_calls[0])
+            self.assertIn(self._html_group_result(self.html_unit1, [1]), mock_index.mock_calls)
             mock_index.reset_mock()
 
     def test_content_group_not_assigned(self):
@@ -1115,7 +1115,7 @@ class GroupConfigurationSearchMongo(CourseTestCase, MixedWithOptionsTestCase):
         with patch(settings.SEARCH_ENGINE + '.index') as mock_index:
             self.reindex_course(self.store)
             self.assertTrue(mock_index.called)
-            self.assertEqual(self._html_nogroup_result(self.html_unit1), mock_index.mock_calls[0])
+            self.assertIn(self._html_nogroup_result(self.html_unit1), mock_index.mock_calls)
             mock_index.reset_mock()
 
     def test_content_group_not_indexed_on_delete(self):
@@ -1134,7 +1134,7 @@ class GroupConfigurationSearchMongo(CourseTestCase, MixedWithOptionsTestCase):
         with patch(settings.SEARCH_ENGINE + '.index') as mock_index:
             self.reindex_course(self.store)
             self.assertTrue(mock_index.called)
-            self.assertEqual(self._html_group_result(self.html_unit1, [1]), mock_index.mock_calls[0])
+            self.assertIn(self._html_group_result(self.html_unit1, [1]), mock_index.mock_calls)
             mock_index.reset_mock()
 
         empty_group_access = {'group_access': {}}
@@ -1150,7 +1150,7 @@ class GroupConfigurationSearchMongo(CourseTestCase, MixedWithOptionsTestCase):
         with patch(settings.SEARCH_ENGINE + '.index') as mock_index:
             self.reindex_course(self.store)
             self.assertTrue(mock_index.called)
-            self.assertEqual(self._html_nogroup_result(self.html_unit1), mock_index.mock_calls[0])
+            self.assertIn(self._html_nogroup_result(self.html_unit1), mock_index.mock_calls)
             mock_index.reset_mock()
 
     def test_group_indexed_only_on_assigned_html_block(self):
@@ -1167,8 +1167,8 @@ class GroupConfigurationSearchMongo(CourseTestCase, MixedWithOptionsTestCase):
         with patch(settings.SEARCH_ENGINE + '.index') as mock_index:
             self.reindex_course(self.store)
             self.assertTrue(mock_index.called)
-            self.assertEqual(self._html_group_result(self.html_unit1, [1]), mock_index.mock_calls[0])
-            self.assertEqual(self._html_nogroup_result(self.html_unit2), mock_index.mock_calls[2])
+            self.assertIn(self._html_group_result(self.html_unit1, [1]), mock_index.mock_calls)
+            self.assertIn(self._html_nogroup_result(self.html_unit2), mock_index.mock_calls)
             mock_index.reset_mock()
 
     def test_different_groups_indexed_on_assigned_html_blocks(self):
@@ -1191,8 +1191,8 @@ class GroupConfigurationSearchMongo(CourseTestCase, MixedWithOptionsTestCase):
         with patch(settings.SEARCH_ENGINE + '.index') as mock_index:
             self.reindex_course(self.store)
             self.assertTrue(mock_index.called)
-            self.assertEqual(self._html_group_result(self.html_unit1, [1]), mock_index.mock_calls[0])
-            self.assertEqual(self._html_group_result(self.html_unit2, [0]), mock_index.mock_calls[2])
+            self.assertIn(self._html_group_result(self.html_unit1, [1]), mock_index.mock_calls)
+            self.assertIn(self._html_group_result(self.html_unit2, [0]), mock_index.mock_calls)
             mock_index.reset_mock()
 
     def test_different_groups_indexed_on_same_vertical_html_blocks(self):
@@ -1219,8 +1219,8 @@ class GroupConfigurationSearchMongo(CourseTestCase, MixedWithOptionsTestCase):
         with patch(settings.SEARCH_ENGINE + '.index') as mock_index:
             self.reindex_course(self.store)
             self.assertTrue(mock_index.called)
-            self.assertEqual(self._html_group_result(self.html_unit2, [1]), mock_index.mock_calls[2])
-            self.assertEqual(self._html_group_result(self.html_unit3, [0]), mock_index.mock_calls[3])
+            self.assertIn(self._html_group_result(self.html_unit2, [1]), mock_index.mock_calls)
+            self.assertIn(self._html_group_result(self.html_unit3, [0]), mock_index.mock_calls)
             mock_index.reset_mock()
 
 
