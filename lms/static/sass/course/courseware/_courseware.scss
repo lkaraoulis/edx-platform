@@ -328,3 +328,11 @@ section.foldit {
 
    }
 }
+
+#courseware-results-wrapper {
+  padding: ($baseline*2);
+
+  #courseware-results-list {
+    display: none;
+  }
+}
