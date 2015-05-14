@@ -1186,3 +1186,64 @@ class SkippedReverification(models.Model):
             Boolean
         """
         return cls.objects.filter(user=user, course_id=course_id).exists()
+
+
+class CreditCourse(models.Model):
+    """Model for tracking the credit course."""
+
+    course_key = CourseKeyField(max_length=255, db_index=True, unique=True)
+
+
+class CreditProvider(models.Model):
+    """This model represents an institution that can grant credit for a course.
+    each provider is identified by unique id e.g ASU
+    """
+    provide_id = models.CharField(max_length=255, db_index=True, unique=True)
+    display_name = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+
+
+class CreditRequirement(models.Model):
+    """This model represents the credit requirments.each requirments is
+    uniquely identified by a “namespace” and a “name” and course id.
+    “configuration” will be dictionary, the format of which varies by the type
+    of requirement.
+    """
+    course = models.ForeignKey(CreditCourse, related_name="credit_requirement_course")
+    requirement_namespace = models.CharField(max_length=255)
+    requirement_name = models.CharField(max_length=255)
+    configuration = models.TextField()
+    active = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+
+    class Meta:  # pylint: disable=missing-docstring, old-style-class
+        unique_together = (('course', 'requirement_namespace', 'requirement_name'),)
+
+
+class CreditRequirementStatus(models.Model):
+    """This model represents the status of each requirement."""
+
+    REQUIREMENT_STATUS_CHOICES = (
+        ("satisfied", "satisfied"),
+    )
+
+    user = models.ForeignKey(User, db_index=True)
+    requirement = models.ForeignKey(CreditRequirement, related_name="credit_requirement_status")
+    status = models.CharField(choices=REQUIREMENT_STATUS_CHOICES, max_length=32)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+
+
+class CreditEligibility(models.Model):
+    """This model represents the Credit Eligibility of a user for particular course.
+    when user satisfied the requirments a record will be added in this table.
+    """
+    user = models.ForeignKey(User, db_index=True)
+    course = models.ForeignKey(CreditCourse, related_name="credit_eligibility_course")
+    provide = models.ForeignKey(CreditProvider, related_name="credit_requirement_provider")
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+
+    # TODO Composite index: (username, course)
