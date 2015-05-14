@@ -6,6 +6,7 @@ from django.conf import settings
 from django.utils.translation import ugettext as _
 from microsite_configuration import microsite
 from edxmako.shortcuts import marketing_link
+from staticfiles.storage import staticfiles_storage
 
 log = logging.getLogger("edx.footer")
 
@@ -21,7 +22,7 @@ def get_footer():
     context = dict()
     context["copy_right"] = copy_right()
     context["heading"] = heading()
-    context["logo_img"] = "{site_name}/sites/all/themes/atedx/images/edx-logo-footer.png".format(site_name=site_name)
+    context["logo_img"] = get_footer_logo(site_name)
     context["social_links"] = social_links()
     context["about_links"] = about_edx_link(site_name)
 
@@ -98,6 +99,18 @@ def about_edx_link(site_name):
             )
         ]
     )
+
+
+def get_footer_logo(site_name):
+    if settings.FEATURES.get('IS_EDX_DOMAIN', False):
+        logo_file = 'images/edx-theme/edx-header-logo.png'
+    else:
+        logo_file = 'images/default-theme/logo.png'
+    try:
+        url = site_name + staticfiles_storage.url(logo_file)
+    except:
+        url = site_name + logo_file
+    return url
 
 
 def get_footer_static(file_name):

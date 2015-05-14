@@ -122,4 +122,4 @@ def footer(request):
         content = get_footer_static("footer.css")
         return HttpResponse(content, content_type='text/javascript', status=200)
     else:
-        return Http404
+        return HttpResponse(status=406)
