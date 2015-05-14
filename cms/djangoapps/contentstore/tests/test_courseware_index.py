@@ -998,6 +998,7 @@ class GroupConfigurationSearchMongo(CourseTestCase, MixedWithOptionsTestCase):
             modulestore=self.store,
             publish_item=True,
         )
+        self.html_unit1.parent = self.vertical
 
         self.html_unit2 = ItemFactory.create(
             parent_location=self.vertical2.location,
@@ -1006,6 +1007,7 @@ class GroupConfigurationSearchMongo(CourseTestCase, MixedWithOptionsTestCase):
             modulestore=self.store,
             publish_item=True,
         )
+        self.html_unit2.parent = self.vertical2
 
         self.html_unit3 = ItemFactory.create(
             parent_location=self.vertical2.location,
@@ -1014,6 +1016,7 @@ class GroupConfigurationSearchMongo(CourseTestCase, MixedWithOptionsTestCase):
             modulestore=self.store,
             publish_item=True,
         )
+        self.html_unit3.parent = self.vertical2
 
         groups_list = {
             u'id': 666,
@@ -1056,12 +1059,19 @@ class GroupConfigurationSearchMongo(CourseTestCase, MixedWithOptionsTestCase):
         return call(
             'courseware_content',
             {
-                'start_date': datetime(2015, 4, 1, 0, 0, tzinfo=tzutc()),
+                'course_name': unicode(self.course.display_name),
+                'id': unicode(html_unit.location),
                 'content': {'html_content': '', 'display_name': unicode(html_unit.display_name)},
                 'course': unicode(self.course.id),
+                'location': [
+                    unicode(self.chapter.display_name),
+                    unicode(self.sequential.display_name),
+                    unicode(html_unit.parent.display_name)
+                ],
                 'content_type': 'Text',
+                'org': self.course.org,
                 'content_groups': content_groups,
-                'id': unicode(html_unit.location)
+                'start_date': datetime(2015, 4, 1, 0, 0, tzinfo=tzutc())
             }
         )
 
@@ -1072,12 +1082,19 @@ class GroupConfigurationSearchMongo(CourseTestCase, MixedWithOptionsTestCase):
         return call(
             'courseware_content',
             {
+                'course_name': unicode(self.course.display_name),
+                'id': unicode(html_unit.location),
                 'content': {'html_content': '', 'display_name': unicode(html_unit.display_name)},
                 'course': unicode(self.course.id),
-                'id': unicode(html_unit.location),
+                'location': [
+                    unicode(self.chapter.display_name),
+                    unicode(self.sequential.display_name),
+                    unicode(html_unit.parent.display_name)
+                ],
                 'content_type': 'Text',
-                'start_date': datetime(2015, 4, 1, 0, 0, tzinfo=tzutc()),
-                'content_groups': None
+                'org': self.course.org,
+                'content_groups': None,
+                'start_date': datetime(2015, 4, 1, 0, 0, tzinfo=tzutc())
             }
         )
 
@@ -1156,7 +1173,6 @@ class GroupConfigurationSearchMongo(CourseTestCase, MixedWithOptionsTestCase):
     def test_group_indexed_only_on_assigned_html_block(self):
         """ indexing course with content groups assigned to one of multiple html units """
         group_access_content = {'group_access': {666: [1]}}
-
         self.client.ajax_post(
             reverse_usage_url("xblock_handler", self.html_unit1.location),
             data={'metadata': group_access_content}
