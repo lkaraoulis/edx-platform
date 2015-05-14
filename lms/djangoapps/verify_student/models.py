@@ -1214,7 +1214,7 @@ class CreditRequirement(models.Model):
     requirement_namespace = models.CharField(max_length=255)
     requirement_name = models.CharField(max_length=255)
     configuration = models.TextField()
-    active = models.BooleanField(default=False)
+    active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
@@ -1242,7 +1242,7 @@ class CreditEligibility(models.Model):
     """
     user = models.ForeignKey(User, db_index=True)
     course = models.ForeignKey(CreditCourse, related_name="credit_eligibility_course")
-    provide = models.ForeignKey(CreditProvider, related_name="credit_requirement_provider")
+    provider = models.ForeignKey(CreditProvider, related_name="credit_requirement_provider")
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
