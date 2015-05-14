@@ -113,7 +113,7 @@ def footer(request):
     # if configuration is not enabled then return 404
     if not BrandingApiConfig.current().enabled:
         raise Http404
-    if "application/json" in request.META.get('HTTP_ACCEPT'):
+    if "application/json" in request.META.get('HTTP_ACCEPT') or "*/*" in request.META.get('HTTP_ACCEPT'):
         return JsonResponse(get_footer(), 200)
     elif "text/javascript" in request.META.get('HTTP_ACCEPT'):
         content = get_footer_static("footer.js")
