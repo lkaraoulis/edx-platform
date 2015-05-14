@@ -82,16 +82,15 @@ footer#footer-edx-v3 {
 
   .sm-link {
     @include float(left);
-    @include margin(0, 0, 10px, 10px);
+    @include margin(0, 0, 10px, 12px);
+    @include font-size(28);
+    @include line-height(28);
     width: 30px;
     height: 30px;
-    line-height: 1.8em;
+    line-height: 1;
     position: relative;
     display: inline;
     background: none;
-    border-radius: 50%;
-    background: $black;
-    color: $white;
     text-align: center;
 
     &:first-of-type {
@@ -104,8 +103,7 @@ footer#footer-edx-v3 {
 
     .icon {
       font-family: 'FontAwesome';
-      color: $white;
-      margin-top: 2px;
+      color: $edx-footer-link-color;
     }
   }
 
@@ -117,6 +115,10 @@ footer#footer-edx-v3 {
 
     &:last-of-type {
       @include margin-right(0);
+    }
+
+    img {
+      height: 40px;
     }
   }
 
@@ -156,7 +158,7 @@ footer#footer-edx-v3 {
     }
 
     .social-media-links {
-      margin-bottom: 55px;
+      margin-bottom: 50px;
     }
   }
 }
