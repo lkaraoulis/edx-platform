@@ -198,7 +198,7 @@ class LmsSearchFilterGeneratorTestCase(ModuleStoreTestCase):
         """
         self.add_seq_with_content_groups()
         self.add_user_to_cohort_group()
-        field_dictionary, filter_dictionary = LmsSearchFilterGenerator.generate_field_filters(
+        field_dictionary, filter_dictionary, _ = LmsSearchFilterGenerator.generate_field_filters(
             user=self.user,
             course_id=unicode(self.courses[0].id)
         )
@@ -225,7 +225,7 @@ class LmsSearchFilterGeneratorTestCase(ModuleStoreTestCase):
         self.courses[0].save()
         modulestore().update_item(self.courses[0], self.user.id)
 
-        field_dictionary, filter_dictionary = LmsSearchFilterGenerator.generate_field_filters(
+        field_dictionary, filter_dictionary, _ = LmsSearchFilterGenerator.generate_field_filters(
             user=self.user,
             course_id=unicode(self.courses[0].id)
         )
@@ -242,7 +242,7 @@ class LmsSearchFilterGeneratorTestCase(ModuleStoreTestCase):
         """
         self.add_seq_with_content_groups(groups=[])
 
-        field_dictionary, filter_dictionary = LmsSearchFilterGenerator.generate_field_filters(
+        field_dictionary, filter_dictionary, _ = LmsSearchFilterGenerator.generate_field_filters(
             user=self.user,
             course_id=unicode(self.courses[0].id)
         )
@@ -257,7 +257,7 @@ class LmsSearchFilterGeneratorTestCase(ModuleStoreTestCase):
         """
         self.add_seq_with_content_groups()
 
-        field_dictionary, filter_dictionary = LmsSearchFilterGenerator.generate_field_filters(
+        field_dictionary, filter_dictionary, _ = LmsSearchFilterGenerator.generate_field_filters(
             user=self.user,
             course_id=unicode(self.courses[0].id)
         )
