@@ -42,4 +42,4 @@ footer#footer-edx-v3 {
 @import 'elements/typography';
 
 // shared - platform
-@import 'shared/footer-v3';
+@import 'shared/footer-edx';

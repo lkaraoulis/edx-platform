@@ -1297,15 +1297,15 @@ PIPELINE_CSS = {
     },
     'style-edx-footer': {
         'source_filenames': [
-            'sass/footer-v3.css',
+            'sass/footer-edx.css',
         ],
-        'output_filename': 'css/lms-style-edx-footer-v3.css',
+        'output_filename': 'css/lms-style-edx-footer.css',
     },
     'style-edx-footer-rtl': {
         'source_filenames': [
-            'sass/footer-v3-rtl.css',
+            'sass/footer-edx-rtl.css',
         ],
-        'output_filename': 'css/lms-style-edx-footer-v3.css',
+        'output_filename': 'css/lms-style-edx-footer.css',
     },
     'style-student-notes': {
         'source_filenames': [

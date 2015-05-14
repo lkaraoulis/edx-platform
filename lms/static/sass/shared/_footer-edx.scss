@@ -1,16 +1,18 @@
-// Open edX: LMS footer
+// edX theme: LMS Footer
 // ====================
 @import '../base/grid-settings';
 @import 'neat/neat'; // lib - Neat
 
 
-// edX theme: LMS Footer
-// ====================
 $edx-footer-link-color: rgb(0, 158, 231);
 $edx-footer-bg-color: rgb(252,252,252);
 
 
 // Aggressively scoped for Drupal
+// ==============================
+// These styles are being loaded on Drupal, LMS and WordPress
+// sites so the scope has to be aggressive to override default
+// CMS styles
 footer#footer-edx-v3 {
   @include outer-container;
   @include box-sizing(border-box);
