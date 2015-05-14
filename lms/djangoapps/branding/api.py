@@ -50,24 +50,22 @@ def copy_right():
 
 
 def heading():
-    """ Returns the heading text
+    """ Returns the heading text copy
     """
     if settings.FEATURES.get('IS_EDX_DOMAIN', False):
-        data = _("EdX offers interactive online classes and MOOCs from the world's best universities, "
-                 "colleges and organizations. Online courses from MITx, HarvardX, BerkeleyX, UTx and "
-                 "many other universities can be taken here. Topics include biology, business, chemistry,"
-                 " computer science, economics, finance, electronics, engineering, food and nutrition,"
-                 " history, humanities, law, literature, math, medicine, music, philosophy, physics, science,"
-                 " statistics and more. EdX is a non-profit online initiative created by founding partners"
-                 " Harvard and MIT.")
+        data = _(
+            "{EdX} offers interactive online classes and MOOCs from the world's best universities. "
+            "Online courses from {MITx}, {HarvardX}, {BerkeleyX}, {UTx} and many other universities. "
+            "Topics include biology, business, chemistry, computer science, economics, finance, "
+            "electronics, engineering, food and nutrition, history, humanities, law, literature, "
+            "math, medicine, music, philosophy, physics, science, statistics and more. {EdX} is a "
+            "non-profit online initiative created by founding partners {Harvard} and {MIT}."
+        ).format(
+            EdX="EdX", Harvard="Harvard", MIT="MIT", HarvardX="HarvardX", MITx="MITx",
+            BerkeleyX="BerkeleyX", UTx="UTx"
+        )
     else:
-        data = _("EdX offers interactive online classes and MOOCs from the world's best universities, "
-                 "colleges and organizations. Online courses from MITx, HarvardX, BerkeleyX, UTx and "
-                 "many other universities can be taken here. Topics include biology, business, chemistry,"
-                 " computer science, economics, finance, electronics, engineering, food and nutrition,"
-                 " history, humanities, law, literature, math, medicine, music, philosophy, physics, science,"
-                 " statistics and more. EdX is a non-profit online initiative created by founding partners"
-                 " Harvard and MIT.")
+        data = ""
     return data
 
 
