@@ -115,6 +115,15 @@ def get_footer_logo(site_name):
 
 def get_footer_static(file_name):
     """ Returns the static js/css contents as a string
+
+    Args:
+        file_name(str): path to the static file name under static folder
+
+    Raises:
+        I/O Error if file not found
+    Returns:
+        Contents of static file
+
     """
     file_dir = os.path.dirname(os.path.abspath(__file__))
     file_path = os.path.join(file_dir, "static/{}".format(file_name))

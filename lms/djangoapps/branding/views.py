@@ -116,10 +116,16 @@ def footer(request):
     if "application/json" in request.META.get('HTTP_ACCEPT') or "*/*" in request.META.get('HTTP_ACCEPT'):
         return JsonResponse(get_footer(), 200)
     elif "text/javascript" in request.META.get('HTTP_ACCEPT'):
-        content = get_footer_static("footer.js")
+        try:
+            content = get_footer_static("footer.js")
+        except IOError:
+            return HttpResponse(content="No js file found", status=404)
         return HttpResponse(content, content_type='text/javascript', status=200)
     elif "text/css" in request.META.get('HTTP_ACCEPT'):
-        content = get_footer_static("footer.css")
-        return HttpResponse(content, content_type='text/javascript', status=200)
+        try:
+            content = get_footer_static("footer.css")
+        except IOError:
+            return HttpResponse(content="No css file found", status=404)
+        return HttpResponse(content, content_type='text/css', status=200)
     else:
         return HttpResponse(status=406)
