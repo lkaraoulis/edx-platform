@@ -50,7 +50,8 @@ function (HTML5Video, Resizer) {
             figureOutStartEndTime: figureOutStartEndTime,
             figureOutStartingTime: figureOutStartingTime,
             updatePlayTime: updatePlayTime,
-            logStopVideo:logStopVideo
+            logStopVideo: logStopVideo,
+            logPauseVideo: logPauseVideo
         };
 
     VideoPlayer.prototype = methodsDict;
@@ -534,6 +535,9 @@ function (HTML5Video, Resizer) {
 
     function onEnded() {
         var time = this.videoPlayer.duration();
+
+        // Emit 'pause_video' & 'stop_video' events when a video ends
+        this.videoPlayer.logPauseVideo();
         this.videoPlayer.logStopVideo();
 
         this.trigger('videoControl.pause', null);
@@ -554,12 +558,7 @@ function (HTML5Video, Resizer) {
     }
 
     function onPause() {
-        this.videoPlayer.log(
-            'pause_video',
-            {
-                currentTime: this.videoPlayer.currentTime
-            }
-        );
+        this.videoPlayer.logPauseVideo();
 
         this.videoPlayer.stopTimer();
 
@@ -592,8 +591,19 @@ function (HTML5Video, Resizer) {
     }
 
     function logStopVideo(){
+        // Emit 'stop_video' event
         this.videoPlayer.log(
             'stop_video',
+            {
+                currentTime: this.videoPlayer.currentTime
+            }
+        );
+    }
+
+    function logPauseVideo(){
+        // Emit 'pause_video' event
+        this.videoPlayer.log(
+            'pause_video',
             {
                 currentTime: this.videoPlayer.currentTime
             }
